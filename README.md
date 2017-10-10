@@ -4,7 +4,7 @@ This table is written in Bootstrap 4. It will show CRUD operations using Angular
 ### Features
 1. Shows CRUD operations on table.
 2. Can create and update records on Bootstrap Modal.
-3. From validation is also while creating and updating records.
+3. Angular's form validation is used while creating and updating records.
 
 ### How it works?
 This table just shows few hard coded records initially. After that you can add, delete, update records in an interactive way.
@@ -12,7 +12,7 @@ This table just shows few hard coded records initially. After that you can add, 
 ### How to run on local
 Follow these steps
 1. git clone git@github.com:chhikaradi21/sort-pipe-demo.git
-2. cd sort-pipe-demo
+2. cd crud-operations
 3. npm install(using node version 6)
 4. ng serve
 5. Access in browser at port 4200 (localhost:4200)
