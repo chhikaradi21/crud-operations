@@ -12,25 +12,25 @@ export class AppComponent {
     CONSTANTS = {
         mobile: 'mobile'
     };
-    person = this.personConstructor();
+    person = this.initPerson();
 
     dataArr = [
         {
             name: 'Aditya',
             city: 'Mumbai',
-            mobile: '1234567899',
+            mobile: '8879350743',
             age: 10
         },
         {
             name: 'Vikas',
             city: 'Hisar',
-            mobile: '2123456789',
+            mobile: '8879350748',
             age: 50
         },
         {
             name: 'Rishi',
             city: 'Banglore',
-            mobile: '3123456789',
+            mobile: '8879350758',
             age: 30
         }
     ];
@@ -50,7 +50,7 @@ export class AppComponent {
         return copy;
     }
 
-    personConstructor() {
+    initPerson() {
         return {
             name: '',
             city: '',
@@ -74,12 +74,12 @@ export class AppComponent {
     }
 
     showModalForAdd(person) {
-        this.person = this.personConstructor();
+        this.person = this.initPerson();
         this.setActionStatus(false);
     }
 
     addNewRecord(person, f) {
-        this.person = this.personConstructor();
+        this.person = this.initPerson();
         // practically this check should be on server
         if (!this.isDupclicateRecord(this.CONSTANTS.mobile, person, this.dataArr)) {
             f.resetForm();
@@ -96,7 +96,6 @@ export class AppComponent {
 
     updateRecord(person) {
         let i;
-
         for (i = 0; i < this.dataArr.length; i += 1) {
             if (this.dataArr[i][this.CONSTANTS.mobile] === person[this.CONSTANTS.mobile]) {
                 this.dataArr[i] = person;
