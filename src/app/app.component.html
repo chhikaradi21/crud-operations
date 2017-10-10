@@ -1,0 +1,172 @@
+<div class="container">
+
+    <div class="row">
+
+        <div class="col-md-12 text-center" style="margin-top: 50px; text-align: center">
+            <h1><span class="badge badge-default color-theme-default"> CRUD OPERATIONS </span></h1>
+        </div>
+
+        <div class="col-md-12">
+            <h3 style="margin-bottom: 20px;margin-top: 50px; text-align: center"> Bootstrap Table With CRUD
+                Operations using AngularJS 4 </h3>
+        </div>
+
+        <div class="col-md-12">
+            <table class="table table-bordered" *ngIf="dataArr && dataArr.length">
+                <thead>
+                <tr>
+                    <th>Name</th>
+                    <th>City</th>
+                    <th>Mobile</th>
+                    <th>Age</th>
+                    <th>Actions</th>
+                </tr>
+                </thead>
+                <tbody>
+                <tr *ngFor="let item of dataArr">
+                    <td>{{item.name}}</td>
+                    <td>{{item.city}}</td>
+                    <td>{{item.mobile}}</td>
+                    <td>{{item.age}}</td>
+                    <td>
+                        <button type="button" class="btn btn-primary btn-sm"
+                                (click)="editRecord(item)"
+                                data-toggle="modal"
+                                data-target="#myModal">Edit
+                        </button>
+                        <button type="button" class="btn btn-danger btn-sm" (click)="removeRecord(item)">Remove</button>
+                    </td>
+                </tr>
+                </tbody>
+            </table>
+        </div>
+
+        <div class="col-md-12" *ngIf="dataArr && !dataArr.length">
+            <p> No records available in the table. </p>
+        </div>
+
+        <div class="col-md-12" >
+            <button type="button" class="btn btn-primary btn-sm"
+                    data-toggle="modal"
+                    data-target="#myModal"
+                    (click)="showModalForAdd()">Add New Records
+            </button>
+        </div>
+
+        <div class="col-md-12">
+            <div class="modal fade" id="myModal">
+                <div class="modal-dialog modal-lg" role="document">
+                    <div class="modal-content">
+                        <div class="modal-header">
+                            <h5 class="modal-title" *ngIf="!isUpdate">Add New Record</h5>
+                            <h5 class="modal-title" *ngIf="isUpdate">Update Record</h5>
+                            <button type="button" class="close" data-dismiss="modal" aria-label="Close">
+                                <span aria-hidden="true">&times;</span>
+                            </button>
+                        </div>
+                        <div class="modal-body">
+                            <form #f="ngForm">
+                                <div class="row">
+                                    <div class="input-group col-md-7 offset-md-1"
+                                         *ngIf="name.invalid && (name.dirty || name.touched)">
+                                        <small style="color: red"> Please enter valid name having min length 3</small>
+                                    </div>
+                                    <div class="input-group col-md-7 offset-md-1" style="margin-bottom: 10px">
+                                        <span class="input-group-addon" id="basic-addon1">Name</span>
+                                        <input type="text" class="form-control" placeholder="name"
+                                               aria-describedby="basic-addon1"
+                                               id="name" name="name"
+                                               minlength="3"
+                                               maxlength="50"
+                                               #name="ngModel"
+                                               required
+                                               [(ngModel)]="person.name">
+                                    </div>
+
+                                    <div class="input-group col-md-7 offset-md-1"
+                                         *ngIf="city.invalid && (city.dirty || city.touched)">
+                                        <small style="color: red"> Please enter valid city having min length 3</small>
+                                    </div>
+                                    <div class="input-group col-md-7 offset-md-1" style="margin-bottom: 10px">
+                                        <span class="input-group-addon" id="basic-addon1">City</span>
+                                        <input type="text" class="form-control" placeholder="city"
+                                               aria-describedby="basic-addon1"
+                                               id="city" name="city"
+                                               minlength="3"
+                                               maxlength="50"
+                                               #city="ngModel"
+                                               required
+                                               [(ngModel)]="person.city">
+                                    </div>
+
+
+                                    <div class="input-group col-md-7 offset-md-1" *ngIf="isUpdate">
+                                        <small> Can't update mobile. Its unique key.</small>
+                                    </div>
+                                    <div class="input-group col-md-7 offset-md-1"
+                                         *ngIf="mobile.invalid && (mobile.dirty || mobile.touched)">
+                                        <small style="color: red"> Please enter 10 digit valid mobile</small>
+                                    </div>
+                                    <div class="input-group col-md-7 offset-md-1" style="margin-bottom: 10px">
+                                        <span class="input-group-addon" id="basic-addon1">Mobile</span>
+                                        <input type="text" class="form-control" placeholder="mobile"
+                                               aria-describedby="basic-addon1"
+                                               id="mobile" name="mobile"
+                                               #mobile="ngModel"
+                                               minlength="10"
+                                               maxlength="10"
+                                               pattern="[0-9]{10}"
+                                               required
+                                               [(ngModel)]="person.mobile" [disabled]="isUpdate">
+                                    </div>
+
+
+                                    <div class="input-group col-md-7 offset-md-1"
+                                         *ngIf="age.invalid && (age.dirty || age.touched)">
+                                        <small style="color: red"> Please enter valid age</small>
+                                    </div>
+                                    <div class="input-group col-md-7 offset-md-1" style="margin-bottom: 10px">
+                                        <span class="input-group-addon" id="basic-addon1">Age</span>
+                                        <input type="number" class="form-control" placeholder="age"
+                                               aria-describedby="basic-addon1"
+                                               id="age" name="age"
+                                               #age="ngModel"
+                                               minlength="1"
+                                               maxlength="2"
+                                               min="1"
+                                               max="99"
+                                               required
+                                               [(ngModel)]="person.age">
+                                    </div>
+
+                                    <div class="col-md-7 offset-md-1" style="margin-bottom: 10px" *ngIf="!isUpdate">
+                                        <button type="button" class="btn btn-sm btn-success"
+                                                [disabled]="name.invalid || city.invalid || mobile.invalid || age.invalid"
+                                                (click)="addNewRecord(person, f)"
+                                                >Add Record
+                                        </button>
+                                    </div>
+
+                                    <div class="col-md-7 offset-md-1" style="margin-bottom: 10px" *ngIf="isUpdate">
+                                        <button type="button" class="btn btn-sm btn-success"
+                                                [disabled]="name.invalid || city.invalid || mobile.invalid || age.invalid"
+                                                (click)="updateRecord(person, f)"
+                                                data-dismiss="modal">Update Record
+                                        </button>
+
+                                    </div>
+                                </div>
+                            </form>
+
+                        </div>
+                        <div class="modal-footer">
+                            <button type="button" class="btn btn-sm btn-danger" data-dismiss="modal">Close</button>
+                        </div>
+                    </div>
+                </div>
+            </div>
+        </div>
+
+    </div>
+</div>
+
