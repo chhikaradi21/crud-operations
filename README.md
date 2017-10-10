@@ -11,7 +11,7 @@ This table just shows few hard coded records initially. After that you can add, 
 
 ### How to run on local
 Follow these steps
-1. git clone git@github.com:chhikaradi21/sort-pipe-demo.git
+1. git clone git@github.com:chhikaradi21/crud-operations.git
 2. cd crud-operations
 3. npm install(using node version 6)
 4. ng serve
